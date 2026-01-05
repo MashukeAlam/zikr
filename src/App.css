@@ -1,0 +1,222 @@
+/* App shell */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__topbar {
+  height: 18px;
+}
+
+/* Centered zikr area */
+.app__main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 34px 18px 26px;
+}
+
+.app__divider {
+  height: 1px;
+  background: var(--line);
+}
+
+.app__footer {
+  padding: 10px 12px 16px;
+}
+
+.app__empty {
+  opacity: 0.65;
+  font-size: 14px;
+}
+
+/* Zikr card */
+.zikrCard {
+  width: 100%;
+  text-align: center;
+}
+
+.zikrCard__topic {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 18px;
+}
+
+/* Tap surface */
+.zikrCard__content {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 18px 10px 10px;
+  border-radius: 18px;
+
+  /* large comfortable tap target without looking like a “card” */
+  min-height: min(62vh, 520px);
+  align-content: center;
+
+  /* used by ripple */
+  --tap-x: 50%;
+  --tap-y: 50%;
+}
+
+/* Soft “bloom” ripple (quiet acknowledgment) */
+.zikrCard__content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      220px 220px at var(--tap-x) var(--tap-y),
+      rgba(190, 205, 255, 0.14),
+      rgba(190, 205, 255, 0.06) 35%,
+      transparent 70%
+    );
+  filter: blur(0.2px);
+}
+
+.zikrCard__content.is-tapping::after {
+  animation: zikrBloom 700ms ease-out 1;
+}
+
+@keyframes zikrBloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zikrCard__content.is-tapping::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Typography */
+.zikrCard__arabic {
+  font-family: "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif;
+  font-size: clamp(30px, 5.6vw, 48px);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  padding-inline: 6px;
+}
+
+.zikrCard__transliteration {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text1);
+  padding-inline: 10px;
+}
+
+/* Meaning toggle + gentle reveal */
+.zikrCard__meaningToggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 13px;
+  padding: 12px 12px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+.zikrCard__meaningToggle:hover {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.zikrCard__meaningToggle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.zikrCard__meaningWrap {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 520ms ease, opacity 520ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zikrCard__meaningWrap {
+    transition: none;
+  }
+}
+
+.zikrCard__meaningWrap.is-open {
+  max-height: 160px;
+  opacity: 1;
+}
+
+.zikrCard__meaning {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.68);
+  max-width: 58ch;
+  margin: 0 auto;
+  padding-inline: 10px;
+}
+
+/* Topic selector */
+.topicSelector {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.topicSelector__rail {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 6px;
+  scrollbar-width: none;
+}
+
+.topicSelector__rail::-webkit-scrollbar {
+  display: none;
+}
+
+.topicSelectorCard {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 14px;
+  padding: 10px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+  transition: color 240ms ease, opacity 240ms ease;
+}
+
+.topicSelectorCard.is-selected {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+}
+
+.topicSelectorCard:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+
+/* Keep the bottom area feeling quiet on small screens */
+@media (max-width: 420px) {
+  .zikrCard__content {
+    min-height: min(58vh, 480px);
+    padding-top: 14px;
+  }
+}
