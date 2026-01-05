@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function ZikrCard({ topicLabel, arabic, transliteration, meaning }) {
-//   const [showMeaning, setShowMeaning] = useState(true)
+export default function ZikrCard({ topicLabel, arabic, transliteration, meaning, onTapZikr }) {
+//   const [showMeaning, setShowMeaning] = useState(false)
   const [isTapping, setIsTapping] = useState(false)
   const tapTimeoutRef = useRef(null)
   const tapSurfaceRef = useRef(null)
@@ -13,7 +13,10 @@ export default function ZikrCard({ topicLabel, arabic, transliteration, meaning 
   }, [])
 
   const handleTapSurfacePointerDown = (e) => {
-    // Respect reduced motion: keep it quiet.
+    // Always count, even if reduced motion is enabled.
+    onTapZikr?.()
+
+    // Respect reduced motion: skip animation only.
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return
 
     const el = tapSurfaceRef.current
@@ -63,7 +66,6 @@ export default function ZikrCard({ topicLabel, arabic, transliteration, meaning 
           {showMeaning ? 'Hide meaning' : 'Show meaning'}
         </button> */}
 
-        {/* <div className={`zikrCard__meaningWrap ${showMeaning ? 'is-open' : ''}`}> */}
         <div className={`zikrCard__meaningWrap is-open`}>
           <div className="zikrCard__meaning">{meaning}</div>
         </div>

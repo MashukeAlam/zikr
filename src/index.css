@@ -1,19 +1,53 @@
 :root {
   color-scheme: dark;
 
-  /* Calm palette */
+  /* Calm palette (dark default) */
   --bg0: #070a0d;
   --bg1: #0a0f14;
+
   --text0: rgba(255, 255, 255, 0.88);
   --text1: rgba(255, 255, 255, 0.72);
   --text2: rgba(255, 255, 255, 0.56);
+
   --line: rgba(255, 255, 255, 0.07);
-
-  /* Soft, spiritual accent (very muted) */
-  --accent: rgba(190, 205, 255, 0.16);
-  --accent2: rgba(255, 230, 190, 0.08);
-
   --focus: rgba(255, 255, 255, 0.18);
+
+  /* Surfaces */
+  --surface: rgba(190, 205, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.07);
+  --overlayBackdrop: rgba(0, 0, 0, 0.44);
+
+  /* Soft bloom + background glows */
+  --glowA: rgba(190, 205, 255, 0.06);
+  --glowB: rgba(255, 230, 190, 0.04);
+  --bloom0: rgba(190, 205, 255, 0.14);
+  --bloom1: rgba(190, 205, 255, 0.06);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  /* Calm palette (light) */
+  --bg0: #f6f4ef;
+  --bg1: #eef1f6;
+
+  --text0: rgba(10, 14, 18, 0.88);
+  --text1: rgba(10, 14, 18, 0.70);
+  --text2: rgba(10, 14, 18, 0.52);
+
+  --line: rgba(10, 14, 18, 0.10);
+  --focus: rgba(10, 14, 18, 0.18);
+
+  --surface: rgba(40, 60, 110, 0.06);
+  --border: rgba(10, 14, 18, 0.10);
+  --overlayBackdrop: rgba(10, 14, 18, 0.22);
+
+  --glowA: rgba(80, 110, 180, 0.08);
+  --glowB: rgba(170, 120, 60, 0.05);
+
+  /* Bloom tuned for light background */
+  --bloom0: rgba(80, 110, 180, 0.16);
+  --bloom1: rgba(80, 110, 180, 0.08);
 }
 
 * {
@@ -27,15 +61,20 @@ body {
 
 body {
   margin: 0;
+  overflow: hidden; /* keep the whole app non-scrollable */
   background:
-    radial-gradient(1200px 800px at 50% 10%, rgba(190, 205, 255, 0.06), transparent 60%),
-    radial-gradient(900px 600px at 20% 80%, rgba(255, 230, 190, 0.04), transparent 55%),
+    radial-gradient(1200px 800px at 50% 10%, var(--glowA), transparent 60%),
+    radial-gradient(900px 600px at 20% 80%, var(--glowB), transparent 55%),
     linear-gradient(180deg, var(--bg0), var(--bg1));
   color: var(--text0);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
 }
 
 ::selection {
