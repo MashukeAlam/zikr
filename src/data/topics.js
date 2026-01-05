@@ -17,5 +17,5 @@ export const TOPIC_LABELS = {
   forgiveness: 'Forgiveness',
   sick: 'Sick',
   protection: 'Protection',
-  before_sleep: 'Before Sleep',
+  before_sleep: 'Sleep',
 }
