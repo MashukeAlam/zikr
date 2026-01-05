@@ -82,6 +82,7 @@
   border-radius: 18px;
   min-height: min(62vh, 520px);
   align-content: center;
+  user-select: none;
   --tap-x: 50%;
   --tap-y: 50%;
 }
@@ -349,4 +350,27 @@
   padding: 2px 4px 4px;
   font-size: 12px;
   color: var(--text2);
+}
+
+.zikrShare {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text2);
+  display: flex;
+  justify-content: center;
+}
+
+.zikrShare__links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 8px;
+}
+
+.zikrShare__link {
+  color: var(--text1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: color 200ms ease;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import ShareOptions from './ShareOptions'
 
 export default function ZikrCard({ topicLabel, arabic, transliteration, meaning, onTapZikr }) {
 //   const [showMeaning, setShowMeaning] = useState(false)
@@ -57,18 +58,20 @@ export default function ZikrCard({ topicLabel, arabic, transliteration, meaning,
 
         <div className="zikrCard__transliteration">{transliteration}</div>
 
+
         {/* <button
           type="button"
           className="zikrCard__meaningToggle"
           onClick={() => setShowMeaning((v) => !v)}
           aria-expanded={showMeaning ? 'true' : 'false'}
-        >
+          >
           {showMeaning ? 'Hide meaning' : 'Show meaning'}
-        </button> */}
+          </button> */}
 
         <div className={`zikrCard__meaningWrap is-open`}>
           <div className="zikrCard__meaning">{meaning}</div>
         </div>
+          <ShareOptions arabic={arabic} transliteration={transliteration} meaning={meaning} />
       </div>
     </section>
   )
